@@ -16,9 +16,11 @@ If you require network customization, however, you can deploy Azure Databricks d
 
 ## Vnet-injection Sanity Checks
 
-- Validity of NSG and inbound/outbound rules
-- Validity of VNET and subnets
+- Validity of NSG and inbound/outbound rules : verify that [traffic subnet whitelistening](https://docs.azuredatabricks.net/administration-guide/cloud-configurations/azure/vnet-inject.html#whitelisting-subnet-traffic) is correctly implemented  
+- Validity of VNET and subnets : The virtual network must include two subnets dedicated to Azure Databricks
+   * A private subnet with a configured [network security group](https://docs.microsoft.com/en-us/azure/virtual-network/manage-network-security-group) that allows cluster-internal communication.
+   * A public subnet with a configured network security group that allows communication with the Azure Databricks control plane
 - Validity of any peering done on the existing VNET, and see if it has a firewall or a ER gateway
-- Validity of any route table attached to the subnets - This will be subjective coz each customer may have different architecture, but we should try and cover what we can
+- Validity of any route table attached to the subnets : verify that all rules comply with Databricks Inbound/Outbound rules
 - Validity of any custom DNS set on the VNET
 
